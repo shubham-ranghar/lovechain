@@ -59,6 +59,41 @@ function EditPage() {
     setContent((prev) => ({ ...prev, [field]: value }));
   };
 
+  const copyToClipboard = (text: string) => {
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied!");
+      }).catch(() => {
+        // Fallback if clipboard API fails
+        fallbackCopy(text);
+      });
+    } else {
+      // Fallback for older browsers or non-HTTPS contexts
+      fallbackCopy(text);
+    }
+  };
+
+  const fallbackCopy = (text: string) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
+      alert("Copied!");
+    } catch (err) {
+      console.error('Copy failed:', err);
+      alert('Copy failed. Please manually copy the link.');
+    }
+    
+    document.body.removeChild(textArea);
+  };
+
   if (loading) return <div className="p-8 text-center">Loading...</div>;
   if (error) return <div className="p-8 text-center text-red-500">{error}</div>;
   if (!couple) return null;
@@ -134,10 +169,7 @@ function EditPage() {
               className="flex-1 bg-background border border-border rounded-lg px-3 py-2 text-sm"
             />
             <button
-              onClick={() => {
-                navigator.clipboard.writeText(`${window.location.origin}/${couple.slug}`);
-                alert("Copied!");
-              }}
+              onClick={() => copyToClipboard(`${window.location.origin}/${couple.slug}`)}
               className="bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
               Copy

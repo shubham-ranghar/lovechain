@@ -75,12 +75,12 @@ export async function createCouple(name1: string, name2: string, recoveryEmail?:
   return { couple: data as Couple, editToken };
 }
 
-// Get couple by slug (for viewing)
+// Get couple by slug (for viewing) - case-insensitive
 export async function getCoupleBySlug(slug: string): Promise<Couple | null> {
   const { data, error } = await supabase
     .from('couples')
     .select('*')
-    .eq('slug', slug)
+    .ilike('slug', slug)
     .single();
 
   if (error) {

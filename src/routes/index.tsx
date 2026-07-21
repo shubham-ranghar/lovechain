@@ -53,9 +53,40 @@ function Landing() {
   };
 
   const copyToClipboard = (text: string, type: "public" | "edit") => {
-    navigator.clipboard.writeText(text);
-    setCopied(type);
-    setTimeout(() => setCopied(null), 2000);
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(type);
+        setTimeout(() => setCopied(null), 2000);
+      }).catch(() => {
+        // Fallback if clipboard API fails
+        fallbackCopy(text, type);
+      });
+    } else {
+      // Fallback for older browsers or non-HTTPS contexts
+      fallbackCopy(text, type);
+    }
+  };
+
+  const fallbackCopy = (text: string, type: "public" | "edit") => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
+      setCopied(type);
+      setTimeout(() => setCopied(null), 2000);
+    } catch (err) {
+      console.error('Copy failed:', err);
+      alert('Copy failed. Please manually copy the link.');
+    }
+    
+    document.body.removeChild(textArea);
   };
 
   const shareOnWhatsApp = (publicUrl: string) => {
