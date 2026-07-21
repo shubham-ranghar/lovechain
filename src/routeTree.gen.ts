@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as StoryRouteImport } from './routes/story'
 import { Route as ReasonsRouteImport } from './routes/reasons'
 import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as LetterRouteImport } from './routes/letter'
@@ -19,11 +18,6 @@ import { Route as DateRouteImport } from './routes/date'
 import { Route as CountdownRouteImport } from './routes/countdown'
 import { Route as IndexRouteImport } from './routes/index'
 
-const StoryRoute = StoryRouteImport.update({
-  id: '/story',
-  path: '/story',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ReasonsRoute = ReasonsRouteImport.update({
   id: '/reasons',
   path: '/reasons',
@@ -74,7 +68,6 @@ export interface FileRoutesByFullPath {
   '/letter': typeof LetterRoute
   '/quiz': typeof QuizRoute
   '/reasons': typeof ReasonsRoute
-  '/story': typeof StoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,7 +78,6 @@ export interface FileRoutesByTo {
   '/letter': typeof LetterRoute
   '/quiz': typeof QuizRoute
   '/reasons': typeof ReasonsRoute
-  '/story': typeof StoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,7 +89,6 @@ export interface FileRoutesById {
   '/letter': typeof LetterRoute
   '/quiz': typeof QuizRoute
   '/reasons': typeof ReasonsRoute
-  '/story': typeof StoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,7 +101,6 @@ export interface FileRouteTypes {
     | '/letter'
     | '/quiz'
     | '/reasons'
-    | '/story'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -121,7 +111,6 @@ export interface FileRouteTypes {
     | '/letter'
     | '/quiz'
     | '/reasons'
-    | '/story'
   id:
     | '__root__'
     | '/'
@@ -132,7 +121,6 @@ export interface FileRouteTypes {
     | '/letter'
     | '/quiz'
     | '/reasons'
-    | '/story'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -144,18 +132,10 @@ export interface RootRouteChildren {
   LetterRoute: typeof LetterRoute
   QuizRoute: typeof QuizRoute
   ReasonsRoute: typeof ReasonsRoute
-  StoryRoute: typeof StoryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/story': {
-      id: '/story'
-      path: '/story'
-      fullPath: '/story'
-      preLoaderRoute: typeof StoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/reasons': {
       id: '/reasons'
       path: '/reasons'
@@ -224,7 +204,6 @@ const rootRouteChildren: RootRouteChildren = {
   LetterRoute: LetterRoute,
   QuizRoute: QuizRoute,
   ReasonsRoute: ReasonsRoute,
-  StoryRoute: StoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
