@@ -13,16 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SlugRouteImport } from './routes/$slug'
 import { Route as ComplimentsRouteImport } from './routes/compliments'
 import { Route as ConstellationRouteImport } from './routes/constellation'
-import { Route as CountdownRouteImport } from './routes/countdown'
 import { Route as DateRouteImport } from './routes/date'
 import { Route as FinaleRouteImport } from './routes/finale'
-import { Route as FutureRouteImport } from './routes/future'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as GardenRouteImport } from './routes/garden'
 import { Route as LetterRouteImport } from './routes/letter'
-import { Route as MapRouteImport } from './routes/map'
-import { Route as PlaylistRouteImport } from './routes/playlist'
-import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as ReasonsRouteImport } from './routes/reasons'
 import { Route as VoiceRouteImport } from './routes/voice'
 import { Route as EditTokenRouteImport } from './routes/edit.$token'
@@ -47,11 +42,6 @@ const ConstellationRoute = ConstellationRouteImport.update({
   path: '/constellation',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CountdownRoute = CountdownRouteImport.update({
-  id: '/countdown',
-  path: '/countdown',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DateRoute = DateRouteImport.update({
   id: '/date',
   path: '/date',
@@ -60,11 +50,6 @@ const DateRoute = DateRouteImport.update({
 const FinaleRoute = FinaleRouteImport.update({
   id: '/finale',
   path: '/finale',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FutureRoute = FutureRouteImport.update({
-  id: '/future',
-  path: '/future',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -80,21 +65,6 @@ const GardenRoute = GardenRouteImport.update({
 const LetterRoute = LetterRouteImport.update({
   id: '/letter',
   path: '/letter',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MapRoute = MapRouteImport.update({
-  id: '/map',
-  path: '/map',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlaylistRoute = PlaylistRouteImport.update({
-  id: '/playlist',
-  path: '/playlist',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuizRoute = QuizRouteImport.update({
-  id: '/quiz',
-  path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReasonsRoute = ReasonsRouteImport.update({
@@ -118,16 +88,11 @@ export interface FileRoutesByFullPath {
   '/$slug': typeof SlugRoute
   '/compliments': typeof ComplimentsRoute
   '/constellation': typeof ConstellationRoute
-  '/countdown': typeof CountdownRoute
   '/date': typeof DateRoute
   '/finale': typeof FinaleRoute
-  '/future': typeof FutureRoute
   '/gallery': typeof GalleryRoute
   '/garden': typeof GardenRoute
   '/letter': typeof LetterRoute
-  '/map': typeof MapRoute
-  '/playlist': typeof PlaylistRoute
-  '/quiz': typeof QuizRoute
   '/reasons': typeof ReasonsRoute
   '/voice': typeof VoiceRoute
   '/edit/$token': typeof EditTokenRoute
@@ -137,16 +102,11 @@ export interface FileRoutesByTo {
   '/$slug': typeof SlugRoute
   '/compliments': typeof ComplimentsRoute
   '/constellation': typeof ConstellationRoute
-  '/countdown': typeof CountdownRoute
   '/date': typeof DateRoute
   '/finale': typeof FinaleRoute
-  '/future': typeof FutureRoute
   '/gallery': typeof GalleryRoute
   '/garden': typeof GardenRoute
   '/letter': typeof LetterRoute
-  '/map': typeof MapRoute
-  '/playlist': typeof PlaylistRoute
-  '/quiz': typeof QuizRoute
   '/reasons': typeof ReasonsRoute
   '/voice': typeof VoiceRoute
   '/edit/$token': typeof EditTokenRoute
@@ -157,16 +117,11 @@ export interface FileRoutesById {
   '/$slug': typeof SlugRoute
   '/compliments': typeof ComplimentsRoute
   '/constellation': typeof ConstellationRoute
-  '/countdown': typeof CountdownRoute
   '/date': typeof DateRoute
   '/finale': typeof FinaleRoute
-  '/future': typeof FutureRoute
   '/gallery': typeof GalleryRoute
   '/garden': typeof GardenRoute
   '/letter': typeof LetterRoute
-  '/map': typeof MapRoute
-  '/playlist': typeof PlaylistRoute
-  '/quiz': typeof QuizRoute
   '/reasons': typeof ReasonsRoute
   '/voice': typeof VoiceRoute
   '/edit/$token': typeof EditTokenRoute
@@ -178,16 +133,11 @@ export interface FileRouteTypes {
     | '/$slug'
     | '/compliments'
     | '/constellation'
-    | '/countdown'
     | '/date'
     | '/finale'
-    | '/future'
     | '/gallery'
     | '/garden'
     | '/letter'
-    | '/map'
-    | '/playlist'
-    | '/quiz'
     | '/reasons'
     | '/voice'
     | '/edit/$token'
@@ -197,16 +147,11 @@ export interface FileRouteTypes {
     | '/$slug'
     | '/compliments'
     | '/constellation'
-    | '/countdown'
     | '/date'
     | '/finale'
-    | '/future'
     | '/gallery'
     | '/garden'
     | '/letter'
-    | '/map'
-    | '/playlist'
-    | '/quiz'
     | '/reasons'
     | '/voice'
     | '/edit/$token'
@@ -216,16 +161,11 @@ export interface FileRouteTypes {
     | '/$slug'
     | '/compliments'
     | '/constellation'
-    | '/countdown'
     | '/date'
     | '/finale'
-    | '/future'
     | '/gallery'
     | '/garden'
     | '/letter'
-    | '/map'
-    | '/playlist'
-    | '/quiz'
     | '/reasons'
     | '/voice'
     | '/edit/$token'
@@ -236,16 +176,11 @@ export interface RootRouteChildren {
   SlugRoute: typeof SlugRoute
   ComplimentsRoute: typeof ComplimentsRoute
   ConstellationRoute: typeof ConstellationRoute
-  CountdownRoute: typeof CountdownRoute
   DateRoute: typeof DateRoute
   FinaleRoute: typeof FinaleRoute
-  FutureRoute: typeof FutureRoute
   GalleryRoute: typeof GalleryRoute
   GardenRoute: typeof GardenRoute
   LetterRoute: typeof LetterRoute
-  MapRoute: typeof MapRoute
-  PlaylistRoute: typeof PlaylistRoute
-  QuizRoute: typeof QuizRoute
   ReasonsRoute: typeof ReasonsRoute
   VoiceRoute: typeof VoiceRoute
   EditTokenRoute: typeof EditTokenRoute
@@ -281,13 +216,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstellationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/countdown': {
-      id: '/countdown'
-      path: '/countdown'
-      fullPath: '/countdown'
-      preLoaderRoute: typeof CountdownRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/date': {
       id: '/date'
       path: '/date'
@@ -300,13 +228,6 @@ declare module '@tanstack/react-router' {
       path: '/finale'
       fullPath: '/finale'
       preLoaderRoute: typeof FinaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/future': {
-      id: '/future'
-      path: '/future'
-      fullPath: '/future'
-      preLoaderRoute: typeof FutureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -328,27 +249,6 @@ declare module '@tanstack/react-router' {
       path: '/letter'
       fullPath: '/letter'
       preLoaderRoute: typeof LetterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/map': {
-      id: '/map'
-      path: '/map'
-      fullPath: '/map'
-      preLoaderRoute: typeof MapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/playlist': {
-      id: '/playlist'
-      path: '/playlist'
-      fullPath: '/playlist'
-      preLoaderRoute: typeof PlaylistRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quiz': {
-      id: '/quiz'
-      path: '/quiz'
-      fullPath: '/quiz'
-      preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reasons': {
@@ -380,16 +280,11 @@ const rootRouteChildren: RootRouteChildren = {
   SlugRoute: SlugRoute,
   ComplimentsRoute: ComplimentsRoute,
   ConstellationRoute: ConstellationRoute,
-  CountdownRoute: CountdownRoute,
   DateRoute: DateRoute,
   FinaleRoute: FinaleRoute,
-  FutureRoute: FutureRoute,
   GalleryRoute: GalleryRoute,
   GardenRoute: GardenRoute,
   LetterRoute: LetterRoute,
-  MapRoute: MapRoute,
-  PlaylistRoute: PlaylistRoute,
-  QuizRoute: QuizRoute,
   ReasonsRoute: ReasonsRoute,
   VoiceRoute: VoiceRoute,
   EditTokenRoute: EditTokenRoute,

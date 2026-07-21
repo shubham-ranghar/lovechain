@@ -143,10 +143,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const { couple } = Route.useLoaderData();
-  const { location } = useRouter();
-
-  // Only show music on public couple pages (not creation form, not edit dashboard)
-  const isPublicCouplePage = couple !== null && !location.pathname.startsWith('/edit');
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -155,7 +151,7 @@ function RootComponent() {
         <CustomCursor />
         <Nav />
         <Outlet />
-        <BackgroundMusic show={isPublicCouplePage} />
+        <BackgroundMusic show={true} />
       </CoupleProvider>
     </QueryClientProvider>
   );
