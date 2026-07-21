@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { PageShell } from "../components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/map")({
   head: () => ({
@@ -15,16 +16,15 @@ export const Route = createFileRoute("/map")({
   component: MapPage,
 });
 
-/* EDIT: pin locations, photos, memories */
-const PINS = [
-  { x: 22, y: 35, label: "Where we met", memory: "The coffee shop on the corner. You spilled your latte and I fell in love.", photo: "" },
-  { x: 55, y: 25, label: "First date", memory: "That tiny restaurant with the flickering candles.", photo: "" },
-  { x: 70, y: 55, label: "Our favorite spot", memory: "The park bench under the old oak tree.", photo: "" },
-  { x: 35, y: 70, label: "A trip we took", memory: "That weekend by the sea — salt in your hair.", photo: "" },
-  { x: 80, y: 78, label: "Where we said 'I love you'", memory: "Right here. I remember every word.", photo: "" },
-];
-
 function MapPage() {
+  const { couple } = useCouple();
+  const PINS = couple?.content?.mapPins || [
+    { x: 22, y: 35, label: "Where we met", memory: "The coffee shop on the corner. You spilled your latte and I fell in love.", photo: "" },
+    { x: 55, y: 25, label: "First date", memory: "That tiny restaurant with the flickering candles.", photo: "" },
+    { x: 70, y: 55, label: "Our favorite spot", memory: "The park bench under the old oak tree.", photo: "" },
+    { x: 35, y: 70, label: "A trip we took", memory: "That weekend by the sea — salt in your hair.", photo: "" },
+    { x: 80, y: 78, label: "Where we said 'I love you'", memory: "Right here. I remember every word.", photo: "" },
+  ];
   const [active, setActive] = useState<number | null>(null);
   return (
     <PageShell>

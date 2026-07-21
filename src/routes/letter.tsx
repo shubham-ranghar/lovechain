@@ -2,13 +2,25 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/letter")({
   component: LetterPage,
 });
 
 function LetterPage() {
+  const { couple } = useCouple();
   const [open, setOpen] = useState(false);
+
+  const letterText = couple?.content?.letterText || `From the very first moment, something about you felt like home.
+
+Every laugh, every small glance, every ordinary Tuesday with you —
+they've quietly become my favorite parts of being alive.
+
+Thank you for being kind, for being brave, for being wildly, unapologetically you.
+I don't know exactly what tomorrow looks like, but I know I want to see it with you.
+
+Yours, always.`;
 
   return (
     <PageShell>
@@ -60,16 +72,8 @@ function LetterPage() {
               }}
             >
               <h2 className="font-script text-3xl text-soft-red mb-4">My dearest,</h2>
-              {/* EDIT: personalize this letter */}
               <p className="text-foreground/90 leading-relaxed whitespace-pre-line">
-                {`From the very first moment, something about you felt like home.
-Every laugh, every small glance, every ordinary Tuesday with you —
-they've quietly become my favorite parts of being alive.
-
-Thank you for being kind, for being brave, for being wildly, unapologetically you.
-I don't know exactly what tomorrow looks like, but I know I want to see it with you.
-
-Yours, always.`}
+                {letterText}
               </p>
               <p className="mt-6 font-script text-2xl text-right text-soft-red">— Me</p>
             </motion.article>

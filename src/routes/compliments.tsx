@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { PageShell } from "../components/PageShell";
 import { HeartBurst } from "../components/Particles";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/compliments")({
   head: () => ({
@@ -16,29 +17,28 @@ export const Route = createFileRoute("/compliments")({
   component: ComplimentsPage,
 });
 
-/* EDIT: your compliments & inside jokes */
-const LINES = [
-  "Your laugh is my favorite sound.",
-  "You make ordinary Tuesdays feel like holidays.",
-  "I love the way you scrunch your nose.",
-  "You are the plot twist I hoped for.",
-  "Even your sleepy voice is beautiful.",
-  "You're the best decision I've ever made.",
-  "Remember that thing you did? Still thinking about it.",
-  "You make me want to be softer.",
-  "I love how you argue about pizza toppings.",
-  "You are home.",
-  "Your kindness rearranges rooms.",
-  "You dance like nobody's judging — because I'm not.",
-  "You're my favorite hello and my hardest goodbye.",
-  "You smell like every good memory I have.",
-  "You're proof the universe pays attention.",
-  "The sun's jealous of the way you glow.",
-  "I'd pick you. In every lifetime. Every time.",
-  "You're my inside joke and my favorite quote.",
-];
-
 function ComplimentsPage() {
+  const { couple } = useCouple();
+  const LINES = couple?.content?.compliments || [
+    "Your laugh is my favorite sound.",
+    "You make ordinary Tuesdays feel like holidays.",
+    "I love the way you scrunch your nose.",
+    "You are the plot twist I hoped for.",
+    "Even your sleepy voice is beautiful.",
+    "You're the best decision I've ever made.",
+    "Remember that thing you did? Still thinking about it.",
+    "You make me want to be softer.",
+    "I love how you argue about pizza toppings.",
+    "You are home.",
+    "Your kindness rearranges rooms.",
+    "You dance like nobody's judging — because I'm not.",
+    "You're my favorite hello and my hardest goodbye.",
+    "You smell like every good memory I have.",
+    "You're proof the universe pays attention.",
+    "The sun's jealous of the way you glow.",
+    "I'd pick you. In every lifetime. Every time.",
+    "You're my inside joke and my favorite quote.",
+  ];
   const [i, setI] = useState(-1);
   const [taps, setTaps] = useState(0);
   const [burst, setBurst] = useState(false);

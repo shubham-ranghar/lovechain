@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { PageShell } from "../components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/playlist")({
   head: () => ({
@@ -15,17 +16,16 @@ export const Route = createFileRoute("/playlist")({
   component: PlaylistPage,
 });
 
-/* EDIT: Replace with real songs */
-const SONGS = [
-  { title: "Song One", artist: "Artist Name", note: "The song that was playing when I first realized I was falling.", link: "https://open.spotify.com/" },
-  { title: "Song Two", artist: "Artist Name", note: "We danced to this in the kitchen at 2am. Best night ever.", link: "https://youtube.com/" },
-  { title: "Song Three", artist: "Artist Name", note: "This one always reminds me of your laugh.", link: "https://open.spotify.com/" },
-  { title: "Song Four", artist: "Artist Name", note: "Our road trip anthem — windows down, singing off-key.", link: "https://open.spotify.com/" },
-  { title: "Song Five", artist: "Artist Name", note: "The lyrics say what I never quite manage to.", link: "https://open.spotify.com/" },
-  { title: "Song Six", artist: "Artist Name", note: "For all the slow, quiet mornings with you.", link: "https://open.spotify.com/" },
-];
-
 function PlaylistPage() {
+  const { couple } = useCouple();
+  const SONGS = couple?.content?.songs || [
+    { title: "Song One", artist: "Artist Name", note: "The song that was playing when I first realized I was falling.", link: "https://open.spotify.com/" },
+    { title: "Song Two", artist: "Artist Name", note: "We danced to this in the kitchen at 2am. Best night ever.", link: "https://youtube.com/" },
+    { title: "Song Three", artist: "Artist Name", note: "This one always reminds me of your laugh.", link: "https://open.spotify.com/" },
+    { title: "Song Four", artist: "Artist Name", note: "Our road trip anthem — windows down, singing off-key.", link: "https://open.spotify.com/" },
+    { title: "Song Five", artist: "Artist Name", note: "The lyrics say what I never quite manage to.", link: "https://open.spotify.com/" },
+    { title: "Song Six", artist: "Artist Name", note: "For all the slow, quiet mornings with you.", link: "https://open.spotify.com/" },
+  ];
   const [playing, setPlaying] = useState<number | null>(null);
   return (
     <PageShell>

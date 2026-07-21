@@ -3,29 +3,28 @@ import { motion } from "framer-motion";
 import { Shuffle } from "lucide-react";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/reasons")({
   component: ReasonsPage,
 });
 
-// EDIT: your real reasons
-const INITIAL = [
-  "Your smile lights up every room.",
-  "The way you laugh at your own jokes.",
-  "How you care about the tiniest things.",
-  "Your kindness to strangers.",
-  "The way you say my name.",
-  "You make ordinary days feel special.",
-  "Your bravery when things get hard.",
-  "The way you dance in the kitchen.",
-  "Your ridiculous, wonderful playlists.",
-  "How safe I feel around you.",
-  "Your curiosity about the world.",
-  "The little notes you leave.",
-];
-
 function ReasonsPage() {
-  const [cards, setCards] = useState(INITIAL);
+  const { couple } = useCouple();
+  const [cards, setCards] = useState(couple?.content?.reasons || [
+    "Your smile lights up every room.",
+    "The way you laugh at your own jokes.",
+    "How you care about the tiniest things.",
+    "Your kindness to strangers.",
+    "The way you say my name.",
+    "You make ordinary days feel special.",
+    "Your bravery when things get hard.",
+    "The way you dance in the kitchen.",
+    "Your ridiculous, wonderful playlists.",
+    "How safe I feel around you.",
+    "Your curiosity about the world.",
+    "The little notes you leave.",
+  ]);
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
 
   const shuffle = () => {

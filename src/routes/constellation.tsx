@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { PageShell } from "../components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/constellation")({
   head: () => ({
@@ -15,21 +16,20 @@ export const Route = createFileRoute("/constellation")({
   component: ConstellationPage,
 });
 
-/* EDIT: heart-shaped constellation coordinates + memories */
-const HEART = [
-  { x: 30, y: 35, memory: "The night we first talked till sunrise." },
-  { x: 40, y: 25, memory: "Your text: 'Get home safe.'" },
-  { x: 50, y: 35, memory: "The kiss under the streetlight." },
-  { x: 60, y: 25, memory: "You laughing at your own joke." },
-  { x: 70, y: 35, memory: "The playlist you made me." },
-  { x: 75, y: 50, memory: "Rainy Sunday, blanket, tea." },
-  { x: 65, y: 65, memory: "'I love you' — the first time." },
-  { x: 50, y: 78, memory: "This exact moment, right now." },
-  { x: 35, y: 65, memory: "Dancing badly in the kitchen." },
-  { x: 25, y: 50, memory: "You. Always you." },
-];
-
 function ConstellationPage() {
+  const { couple } = useCouple();
+  const HEART = couple?.content?.constellationMemories || [
+    { x: 30, y: 35, memory: "The night we first talked till sunrise." },
+    { x: 40, y: 25, memory: "Your text: 'Get home safe.'" },
+    { x: 50, y: 35, memory: "The kiss under the streetlight." },
+    { x: 60, y: 25, memory: "You laughing at your own joke." },
+    { x: 70, y: 35, memory: "The playlist you made me." },
+    { x: 75, y: 50, memory: "Rainy Sunday, blanket, tea." },
+    { x: 65, y: 65, memory: "'I love you' — the first time." },
+    { x: 50, y: 78, memory: "This exact moment, right now." },
+    { x: 35, y: 65, memory: "Dancing badly in the kitchen." },
+    { x: 25, y: 50, memory: "You. Always you." },
+  ];
   const stars = useMemo(
     () => Array.from({ length: 80 }).map(() => ({
       x: Math.random() * 100, y: Math.random() * 100, s: 0.5 + Math.random() * 1.5, d: Math.random() * 3,

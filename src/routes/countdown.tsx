@@ -2,31 +2,34 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/countdown")({
   component: CountdownPage,
 });
 
-// EDIT: your special date
-const TARGET = new Date("2026-12-31T00:00:00").getTime();
-
-function diff() {
-  const now = Date.now();
-  const d = Math.max(0, TARGET - now);
-  return {
-    days: Math.floor(d / 86400000),
-    hours: Math.floor((d / 3600000) % 24),
-    minutes: Math.floor((d / 60000) % 60),
-    seconds: Math.floor((d / 1000) % 60),
-  };
-}
-
 function CountdownPage() {
+  const { couple } = useCouple();
+  const TARGET = couple?.content?.countdownDate 
+    ? new Date(couple.content.countdownDate).getTime()
+    : new Date("2026-12-31T00:00:00").getTime();
+
+  function diff() {
+    const now = Date.now();
+    const d = Math.max(0, TARGET - now);
+    return {
+      days: Math.floor(d / 86400000),
+      hours: Math.floor((d / 3600000) % 24),
+      minutes: Math.floor((d / 60000) % 60),
+      seconds: Math.floor((d / 1000) % 60),
+    };
+  }
+
   const [t, setT] = useState(diff);
   useEffect(() => {
     const id = setInterval(() => setT(diff()), 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [TARGET]);
 
   const units: Array<[string, number]> = [
     ["days", t.days],

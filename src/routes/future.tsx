@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Plus, Check } from "lucide-react";
 import { PageShell } from "../components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/future")({
   head: () => ({
@@ -16,19 +17,17 @@ export const Route = createFileRoute("/future")({
   component: FuturePage,
 });
 
-/* EDIT: your bucket list */
-const INITIAL = [
-  { text: "Watch the sunset on a beach", done: true },
-  { text: "Cook a whole meal together (no takeout)", done: true },
-  { text: "Travel to [place]", done: false },
-  { text: "See the northern lights", done: false },
-  { text: "Adopt a pet together", done: false },
-  { text: "Learn to dance — properly", done: true },
-  { text: "Grow old, still holding hands", done: false },
-];
-
 function FuturePage() {
-  const [items, setItems] = useState(INITIAL);
+  const { couple } = useCouple();
+  const [items, setItems] = useState(couple?.content?.bucketList || [
+    { text: "Watch the sunset on a beach", done: true },
+    { text: "Cook a whole meal together (no takeout)", done: true },
+    { text: "Travel to [place]", done: false },
+    { text: "See the northern lights", done: false },
+    { text: "Adopt a pet together", done: false },
+    { text: "Learn to dance — properly", done: true },
+    { text: "Grow old, still holding hands", done: false },
+  ]);
   const [draft, setDraft] = useState("");
 
   const toggle = (i: number) =>

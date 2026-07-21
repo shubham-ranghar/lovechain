@@ -3,20 +3,30 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
 });
 
-// EDIT: replace with real photo URLs and captions
-const PHOTOS = Array.from({ length: 9 }).map((_, i) => ({
-  id: i,
-  src: `https://picsum.photos/seed/love${i}/600/${500 + (i % 3) * 80}`,
-  caption: `Memory #${i + 1}`,
-  tilt: (i % 2 === 0 ? -1 : 1) * (1 + (i % 3)),
-}));
-
 function GalleryPage() {
+  const { couple } = useCouple();
+  const galleryPhotos = couple?.content?.galleryPhotos || [];
+  
+  // Fallback to placeholder images if no photos are uploaded yet
+  const PHOTOS = galleryPhotos.length > 0 
+    ? galleryPhotos.map((p, i) => ({
+        id: i,
+        src: p.url,
+        caption: p.caption || `Memory #${i + 1}`,
+        tilt: (i % 2 === 0 ? -1 : 1) * (1 + (i % 3)),
+      }))
+    : Array.from({ length: 9 }).map((_, i) => ({
+        id: i,
+        src: `https://picsum.photos/seed/love${i}/600/${500 + (i % 3) * 80}`,
+        caption: `Memory #${i + 1}`,
+        tilt: (i % 2 === 0 ? -1 : 1) * (1 + (i % 3)),
+      }));
   const [active, setActive] = useState<null | (typeof PHOTOS)[number]>(null);
 
   return (

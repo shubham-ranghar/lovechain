@@ -14,6 +14,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Particles } from "../components/Particles";
 import { CustomCursor } from "../components/CustomCursor";
 import { Nav } from "../components/Nav";
+import { CoupleProvider, useCouple } from "../contexts/CoupleContext";
+import { getCoupleBySlug } from "../lib/api";
 
 function NotFoundComponent() {
   return (
@@ -76,6 +78,21 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: async ({ location }) => {
+    // Skip Supabase calls during SSR to avoid WebSocket issues in Node.js 20
+    if (typeof window === 'undefined') {
+      return { couple: null };
+    }
+    
+    // Check if URL path contains a slug (not root and not edit route)
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    if (pathParts.length > 0 && pathParts[0] !== 'edit') {
+      const slug = pathParts[0];
+      const couple = await getCoupleBySlug(slug);
+      return { couple };
+    }
+    return { couple: null };
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -120,13 +137,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { couple } = Route.useLoaderData();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Particles />
-      <CustomCursor />
-      <Nav />
-      <Outlet />
+      <CoupleProvider initialCouple={couple}>
+        <Particles />
+        <CustomCursor />
+        <Nav />
+        <Outlet />
+      </CoupleProvider>
     </QueryClientProvider>
   );
 }

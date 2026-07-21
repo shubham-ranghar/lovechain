@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { HeartBurst } from "@/components/Particles";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/date")({
   component: DatePage,
@@ -11,6 +12,7 @@ export const Route = createFileRoute("/date")({
 const NO_MESSAGES = ["No", "Are you sure?", "Really?", "Pretty please?", "Think again 🥺"];
 
 function DatePage() {
+  const { couple } = useCouple();
   const navigate = useNavigate();
   const [dodgeCount, setDodgeCount] = useState(0);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -36,6 +38,8 @@ function DatePage() {
   const shrink = Math.max(0.4, 1 - dodgeCount * 0.12);
   const hideNo = dodgeCount >= 5;
 
+  const question = couple?.content?.dateQuestion || "Will you go on a date with me?";
+
   return (
     <PageShell>
       <div
@@ -47,7 +51,7 @@ function DatePage() {
           animate={{ opacity: 1, y: 0 }}
           className="font-script text-5xl sm:text-7xl text-soft-red"
         >
-          Will you go on a date with me?
+          {question}
         </motion.h1>
 
         <div className="relative flex flex-wrap items-center justify-center gap-6">
@@ -76,7 +80,6 @@ function DatePage() {
         </div>
 
         <p className="text-sm text-muted-foreground max-w-xs">
-          {/* EDIT: playful hint */}
           (there's only one right answer here 😉)
         </p>
       </div>

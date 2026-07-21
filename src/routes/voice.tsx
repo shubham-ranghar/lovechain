@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 import { PageShell } from "../components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/voice")({
   head: () => ({
@@ -17,20 +18,23 @@ export const Route = createFileRoute("/voice")({
 });
 
 function VoicePage() {
+  const { couple } = useCouple();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
 
+  const voiceNoteUrl = couple?.content?.voiceNoteUrl || "";
+
   useEffect(() => {
-    /* EDIT: replace src with your own recording in /public */
-    const a = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_1b1f0c9d17.mp3?filename=romantic-piano-ambient-110241.mp3");
+    if (!voiceNoteUrl) return;
+    const a = new Audio(voiceNoteUrl);
     a.addEventListener("ended", () => setPlaying(false));
     audioRef.current = a;
     return () => { a.pause(); };
-  }, []);
+  }, [voiceNoteUrl]);
 
   const toggle = () => {
     const a = audioRef.current;
-    if (!a) return;
+    if (!a || !voiceNoteUrl) return;
     if (playing) { a.pause(); setPlaying(false); }
     else { a.play().catch(() => {}); setPlaying(true); }
   };

@@ -2,12 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { PageShell } from "@/components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/finale")({
   component: FinalePage,
 });
 
 function FinalePage() {
+  const { couple } = useCouple();
+  const finaleMessage = couple?.content?.finaleMessage || "Now, and every day after this one.";
+
   const hearts = useMemo(
     () =>
       Array.from({ length: 40 }).map((_, i) => ({
@@ -67,8 +71,7 @@ function FinalePage() {
           transition={{ delay: 1 }}
           className="mt-6 max-w-md text-muted-foreground relative"
         >
-          {/* EDIT: closing message */}
-          Now, and every day after this one.
+          {finaleMessage}
         </motion.p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3 relative">

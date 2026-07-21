@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { PageShell } from "../components/PageShell";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/garden")({
   head: () => ({
@@ -15,16 +16,15 @@ export const Route = createFileRoute("/garden")({
   component: GardenPage,
 });
 
-/* EDIT: growth captions */
-const STAGES = [
-  { label: "Seed", caption: "It started small — a shy hello, a nervous smile." },
-  { label: "Sprout", caption: "Little green shoots: late-night texts, inside jokes." },
-  { label: "Leaves", caption: "We learned each other's weather, and stayed anyway." },
-  { label: "Bud", caption: "Something bigger, quieter, more certain took shape." },
-  { label: "Bloom", caption: "And here we are — in full color, still growing." },
-];
-
 function GardenPage() {
+  const { couple } = useCouple();
+  const STAGES = couple?.content?.gardenStages || [
+    { label: "Seed", caption: "It started small — a shy hello, a nervous smile." },
+    { label: "Sprout", caption: "Little green shoots: late-night texts, inside jokes." },
+    { label: "Leaves", caption: "We learned each other's weather, and stayed anyway." },
+    { label: "Bud", caption: "Something bigger, quieter, more certain took shape." },
+    { label: "Bloom", caption: "And here we are — in full color, still growing." },
+  ];
   const [stage, setStage] = useState(0);
   const grow = () => setStage((s) => Math.min(s + 1, STAGES.length - 1));
   const reset = () => setStage(0);

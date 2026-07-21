@@ -3,36 +3,36 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { HeartBurst } from "@/components/Particles";
+import { useCouple } from "@/contexts/CoupleContext";
 
 export const Route = createFileRoute("/quiz")({
   component: QuizPage,
 });
 
-// EDIT: your real questions
-const QUESTIONS = [
-  {
-    q: "Where did we first meet?",
-    options: ["A coffee shop", "Online", "Through friends", "At a party"],
-    answer: 0,
-  },
-  {
-    q: "What's my favorite thing about you?",
-    options: ["Your laugh", "Your kindness", "Your smile", "All of the above"],
-    answer: 3,
-  },
-  {
-    q: "Our favorite shared snack?",
-    options: ["Popcorn", "Ice cream", "Pizza", "Chocolate"],
-    answer: 1,
-  },
-  {
-    q: "Best trip we've taken?",
-    options: ["The beach", "The mountains", "The city", "Home together"],
-    answer: 3,
-  },
-];
-
 function QuizPage() {
+  const { couple } = useCouple();
+  const QUESTIONS = couple?.content?.quizQuestions || [
+    {
+      q: "Where did we first meet?",
+      options: ["A coffee shop", "Online", "Through friends", "At a party"],
+      answer: 0,
+    },
+    {
+      q: "What's my favorite thing about you?",
+      options: ["Your laugh", "Your kindness", "Your smile", "All of the above"],
+      answer: 3,
+    },
+    {
+      q: "Our favorite shared snack?",
+      options: ["Popcorn", "Ice cream", "Pizza", "Chocolate"],
+      answer: 1,
+    },
+    {
+      q: "Best trip we've taken?",
+      options: ["The beach", "The mountains", "The city", "Home together"],
+      answer: 3,
+    },
+  ];
   const [step, setStep] = useState(0);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<null | boolean>(null);

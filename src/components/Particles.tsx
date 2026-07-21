@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 /**
  * Floating hearts/petals background — lightweight CSS-driven.
  * Renders a fixed set of drifting elements behind all page content.
  */
 export function Particles({ count = 18 }: { count?: number }) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const items = useMemo(
     () =>
       Array.from({ length: count }).map((_, i) => ({
@@ -19,6 +25,9 @@ export function Particles({ count = 18 }: { count?: number }) {
       })),
     [count],
   );
+
+  // Don't render on server to avoid hydration mismatch
+  if (!isClient) return null;
 
   return (
     <div
