@@ -68,15 +68,10 @@ function EditPage() {
     { id: "date", label: "Date" },
     { id: "letter", label: "Letter" },
     { id: "reasons", label: "Reasons" },
-    { id: "future", label: "Future" },
     { id: "compliments", label: "Compliments" },
-    { id: "quiz", label: "Quiz" },
-    { id: "map", label: "Map" },
     { id: "constellation", label: "Constellation" },
     { id: "garden", label: "Garden" },
-    { id: "countdown", label: "Countdown" },
     { id: "finale", label: "Finale" },
-    { id: "playlist", label: "Playlist" },
     { id: "gallery", label: "Gallery" },
     { id: "voice", label: "Voice" },
   ];
@@ -250,23 +245,6 @@ function EditPage() {
               </div>
             )}
 
-            {activeSection === "future" && (
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-soft-red">Future / Bucket List</h2>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Bucket List Items (one per line)</label>
-                  <textarea
-                    value={(content.bucketList || []).map((b: any) => b.text).join("\n")}
-                    onChange={(e) => 
-                      updateField("bucketList", e.target.value.split("\n").filter(Boolean).map((text) => ({ text, done: false })))
-                    }
-                    className="w-full rounded-lg border border-border px-4 py-2 h-64"
-                    placeholder="Watch the sunset on a beach"
-                  />
-                </div>
-              </div>
-            )}
-
             {activeSection === "compliments" && (
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold text-soft-red">Compliments Page</h2>
@@ -279,55 +257,6 @@ function EditPage() {
                     placeholder="Your laugh is my favorite sound."
                   />
                 </div>
-              </div>
-            )}
-
-            {activeSection === "quiz" && (
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-soft-red">Quiz Page</h2>
-                <p className="text-sm text-muted-foreground">Format: Question | Option1,Option2,Option3,Option4 | correct_answer_index (0-3)</p>
-                <textarea
-                  value={(content.quizQuestions || []).map((q: any) => 
-                    `${q.q}|${q.options.join(",")}|${q.answer}`
-                  ).join("\n")}
-                  onChange={(e) => {
-                    const lines = e.target.value.split("\n").filter(Boolean);
-                    const questions = lines.map((line) => {
-                      const [q, optsStr, answer] = line.split("|");
-                      return {
-                        q,
-                        options: optsStr.split(","),
-                        answer: parseInt(answer),
-                      };
-                    });
-                    updateField("quizQuestions", questions);
-                  }}
-                  className="w-full rounded-lg border border-border px-4 py-2 h-64"
-                  placeholder="Where did we first meet?|Coffee shop,Online,Through friends,At a party|0"
-                />
-              </div>
-            )}
-
-            {activeSection === "map" && (
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-soft-red">Map Page</h2>
-                <p className="text-sm text-muted-foreground">Format: x,y|Label|Memory</p>
-                <textarea
-                  value={(content.mapPins || []).map((p: any) => 
-                    `${p.x},${p.y}|${p.label}|${p.memory}`
-                  ).join("\n")}
-                  onChange={(e) => {
-                    const lines = e.target.value.split("\n").filter(Boolean);
-                    const pins = lines.map((line) => {
-                      const [coords, label, memory] = line.split("|");
-                      const [x, y] = coords.split(",").map(Number);
-                      return { x, y, label, memory, photo: "" };
-                    });
-                    updateField("mapPins", pins);
-                  }}
-                  className="w-full rounded-lg border border-border px-4 py-2 h-64"
-                  placeholder="50,50|Where we met|The beginning of everything"
-                />
               </div>
             )}
 
@@ -376,21 +305,6 @@ function EditPage() {
               </div>
             )}
 
-            {activeSection === "countdown" && (
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-soft-red">Countdown Page</h2>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Target Date</label>
-                  <input
-                    type="datetime-local"
-                    value={content.countdownDate || ""}
-                    onChange={(e) => updateField("countdownDate", e.target.value)}
-                    className="w-full rounded-lg border border-border px-4 py-2"
-                  />
-                </div>
-              </div>
-            )}
-
             {activeSection === "finale" && (
               <div className="space-y-4">
                 <h2 className="text-xl font-semibold text-soft-red">Finale Page</h2>
@@ -403,28 +317,6 @@ function EditPage() {
                     placeholder="Now, and every day after this one."
                   />
                 </div>
-              </div>
-            )}
-
-            {activeSection === "playlist" && (
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-soft-red">Playlist Page</h2>
-                <p className="text-sm text-muted-foreground">Format: Title|Artist|Note|Link</p>
-                <textarea
-                  value={(content.songs || []).map((s: any) => 
-                    `${s.title}|${s.artist}|${s.note}|${s.link}`
-                  ).join("\n")}
-                  onChange={(e) => {
-                    const lines = e.target.value.split("\n").filter(Boolean);
-                    const songs = lines.map((line) => {
-                      const [title, artist, note, link] = line.split("|");
-                      return { title, artist, note, link };
-                    });
-                    updateField("songs", songs);
-                  }}
-                  className="w-full rounded-lg border border-border px-4 py-2 h-64"
-                  placeholder="Song One|Artist Name|The song that was playing...|https://open.spotify.com/"
-                />
               </div>
             )}
 

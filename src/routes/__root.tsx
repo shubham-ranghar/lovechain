@@ -16,6 +16,7 @@ import { CustomCursor } from "../components/CustomCursor";
 import { Nav } from "../components/Nav";
 import { CoupleProvider, useCouple } from "../contexts/CoupleContext";
 import { getCoupleBySlug } from "../lib/api";
+import { BackgroundMusic } from "../components/BackgroundMusic";
 
 function NotFoundComponent() {
   return (
@@ -84,9 +85,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       return { couple: null };
     }
     
-    // Check if URL path contains a slug (not root and not edit route)
+    // Only fetch couple if we're on a slug route (not root, not edit, not other named routes)
     const pathParts = location.pathname.split('/').filter(Boolean);
-    if (pathParts.length > 0 && pathParts[0] !== 'edit') {
+    const isRootRoute = pathParts.length === 0;
+    const isEditRoute = pathParts.length > 0 && pathParts[0] === 'edit';
+    const isNamedRoute = pathParts.length > 0 && ['date', 'letter', 'reasons', 'compliments', 'constellation', 'garden', 'finale', 'gallery', 'voice'].includes(pathParts[0]);
+    
+    if (!isRootRoute && !isEditRoute && !isNamedRoute && pathParts.length > 0) {
       const slug = pathParts[0];
       const couple = await getCoupleBySlug(slug);
       return { couple };
@@ -138,6 +143,10 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const { couple } = Route.useLoaderData();
+  const { location } = useRouter();
+
+  // Only show music on public couple pages (not creation form, not edit dashboard)
+  const isPublicCouplePage = couple !== null && !location.pathname.startsWith('/edit');
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -146,6 +155,7 @@ function RootComponent() {
         <CustomCursor />
         <Nav />
         <Outlet />
+        <BackgroundMusic show={isPublicCouplePage} />
       </CoupleProvider>
     </QueryClientProvider>
   );

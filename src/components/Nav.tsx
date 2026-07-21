@@ -7,18 +7,13 @@ import type { Couple } from "@/lib/supabase";
 const PAGES = [
   { id: "home", label: "Home", path: "" },
   { id: "date", label: "A Date?", path: "date" },
-  { id: "playlist", label: "Playlist", path: "playlist" },
-  { id: "map", label: "Map of Us", path: "map" },
   { id: "gallery", label: "Memories", path: "gallery" },
   { id: "voice", label: "Voice Note", path: "voice" },
   { id: "letter", label: "Love Letter", path: "letter" },
   { id: "reasons", label: "Reasons", path: "reasons" },
-  { id: "future", label: "Our Future", path: "future" },
   { id: "compliments", label: "Compliments", path: "compliments" },
-  { id: "quiz", label: "Quiz", path: "quiz" },
   { id: "constellation", label: "Constellation", path: "constellation" },
   { id: "garden", label: "Growing", path: "garden" },
-  { id: "countdown", label: "Countdown", path: "countdown" },
   { id: "finale", label: "Forever", path: "finale" },
 ] as const;
 

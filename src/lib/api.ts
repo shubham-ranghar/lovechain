@@ -34,27 +34,12 @@ export async function createCouple(name1: string, name2: string, recoveryEmail?:
       'You make ordinary days feel special.',
     ],
     galleryPhotos: [],
-    bucketList: [
-      { text: 'Watch the sunset on a beach', done: false },
-      { text: 'Cook a whole meal together', done: false },
-      { text: 'Travel somewhere new together', done: false },
-    ],
     compliments: [
       'Your laugh is my favorite sound.',
       'You make ordinary Tuesdays feel like holidays.',
       'I love the way you scrunch your nose.',
       'You are the plot twist I hoped for.',
       'You are home.',
-    ],
-    quizQuestions: [
-      {
-        question: 'Where did we first meet?',
-        options: ['A coffee shop', 'Online', 'Through friends', 'At a party'],
-        answer: 0,
-      },
-    ],
-    mapPins: [
-      { x: 50, y: 50, label: 'Where we met', memory: 'The beginning of everything.' },
     ],
     constellationMemories: [
       { x: 30, y: 35, memory: 'The night we first talked till sunrise.' },
@@ -68,9 +53,8 @@ export async function createCouple(name1: string, name2: string, recoveryEmail?:
       { label: 'Bud', caption: 'Something bigger, quieter, more certain took shape.' },
       { label: 'Bloom', caption: 'And here we are — in full color, still growing.' },
     ],
-    countdownDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days from now
     finaleMessage: 'Now, and every day after this one.',
-    enabledPages: ['home', 'date', 'letter', 'reasons', 'future', 'finale'],
+    enabledPages: ['home', 'date', 'letter', 'reasons', 'finale'],
   };
 
   const { data, error } = await supabase

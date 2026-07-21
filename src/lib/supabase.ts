@@ -78,38 +78,8 @@ export interface CoupleContent {
   // Voice page
   voiceNoteUrl?: string;
   
-  // Playlist page
-  songs?: Array<{
-    title: string;
-    artist: string;
-    note: string;
-    link: string;
-  }>;
-  
-  // Future/Bucket List page
-  bucketList?: Array<{
-    text: string;
-    done: boolean;
-  }>;
-  
   // Compliments page
   compliments?: string[];
-  
-  // Quiz page
-  quizQuestions?: Array<{
-    question: string;
-    options: string[];
-    answer: number;
-  }>;
-  quizScore?: number;
-  
-  // Map page
-  mapPins?: Array<{
-    x: number;
-    y: number;
-    label: string;
-    memory: string;
-  }>;
   
   // Constellation page
   constellationMemories?: Array<{
@@ -124,9 +94,6 @@ export interface CoupleContent {
     label: string;
     caption: string;
   }>;
-  
-  // Countdown page
-  countdownDate?: string;
   
   // Finale page
   finaleMessage?: string;
