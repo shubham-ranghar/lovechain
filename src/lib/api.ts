@@ -77,6 +77,7 @@ export async function createCouple(name1: string, name2: string, recoveryEmail?:
 
 // Get couple by slug (for viewing) - case-insensitive
 export async function getCoupleBySlug(slug: string): Promise<Couple | null> {
+  console.log('[getCoupleBySlug] Fetching couple with slug:', slug);
   const { data, error } = await supabase
     .from('couples')
     .select('*')
@@ -84,10 +85,15 @@ export async function getCoupleBySlug(slug: string): Promise<Couple | null> {
     .single();
 
   if (error) {
-    console.error('Error fetching couple by slug:', error);
+    console.error('[getCoupleBySlug] Supabase error:', error);
+    console.error('[getCoupleBySlug] Error code:', error.code);
+    console.error('[getCoupleBySlug] Error message:', error.message);
+    console.error('[getCoupleBySlug] Error details:', error.details);
+    console.error('[getCoupleBySlug] Error hint:', error.hint);
     return null;
   }
 
+  console.log('[getCoupleBySlug] Successfully fetched couple:', data);
   return data as Couple;
 }
 

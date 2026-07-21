@@ -80,8 +80,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   loader: async ({ location }) => {
+    console.log('[Root Loader] pathname:', location.pathname);
+    
     // Skip Supabase calls during SSR to avoid WebSocket issues in Node.js 20
     if (typeof window === 'undefined') {
+      console.log('[Root Loader] SSR detected, skipping fetch, returning null couple');
       return { couple: null };
     }
     
@@ -91,11 +94,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     const isEditRoute = pathParts.length > 0 && pathParts[0] === 'edit';
     const isNamedRoute = pathParts.length > 0 && ['date', 'letter', 'reasons', 'compliments', 'constellation', 'garden', 'finale', 'gallery', 'voice'].includes(pathParts[0]);
     
+    console.log('[Root Loader] pathParts:', pathParts, 'isRootRoute:', isRootRoute, 'isEditRoute:', isEditRoute, 'isNamedRoute:', isNamedRoute);
+    
     if (!isRootRoute && !isEditRoute && !isNamedRoute && pathParts.length > 0) {
       const slug = pathParts[0];
+      console.log('[Root Loader] Fetching couple by slug:', slug);
       const couple = await getCoupleBySlug(slug);
+      console.log('[Root Loader] getCoupleBySlug result:', couple);
       return { couple };
     }
+    console.log('[Root Loader] Not a slug route, returning null couple');
     return { couple: null };
   },
   head: () => ({
