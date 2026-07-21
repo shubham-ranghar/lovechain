@@ -29,7 +29,7 @@ function DatePage() {
 
   const onYes = () => {
     setBurst(true);
-    setTimeout(() => navigate({ to: "/story" }), 1400);
+    setTimeout(() => navigate({ to: "/playlist" }), 1400);
   };
 
   const label = NO_MESSAGES[Math.min(dodgeCount, NO_MESSAGES.length - 1)];

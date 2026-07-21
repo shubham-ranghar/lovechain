@@ -6,11 +6,17 @@ import { useEffect, useRef, useState } from "react";
 const PAGES = [
   { to: "/", label: "Home" },
   { to: "/date", label: "A Date?" },
-  { to: "/story", label: "Our Story" },
+  { to: "/playlist", label: "Playlist" },
+  { to: "/map", label: "Map of Us" },
   { to: "/gallery", label: "Memories" },
+  { to: "/voice", label: "Voice Note" },
   { to: "/letter", label: "Love Letter" },
   { to: "/reasons", label: "Reasons" },
+  { to: "/future", label: "Our Future" },
+  { to: "/compliments", label: "Compliments" },
   { to: "/quiz", label: "Quiz" },
+  { to: "/constellation", label: "Constellation" },
+  { to: "/garden", label: "Growing" },
   { to: "/countdown", label: "Countdown" },
   { to: "/finale", label: "Forever" },
 ] as const;
