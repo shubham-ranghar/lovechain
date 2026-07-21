@@ -55,18 +55,19 @@ export function Particles({ count = 18 }: { count?: number }) {
 
 /** Confetti-like heart burst using framer-motion (used on Yes click / finale). */
 export function HeartBurst({ show }: { show: boolean }) {
-  const pieces = useMemo(
-    () =>
-      Array.from({ length: 60 }).map((_, i) => ({
-        id: i,
-        x: (Math.random() - 0.5) * window.innerWidth,
-        y: -Math.random() * window.innerHeight,
-        rot: Math.random() * 720,
-        size: 16 + Math.random() * 24,
-        delay: Math.random() * 0.3,
-      })),
-    [show],
-  );
+  const pieces = useMemo(() => {
+    const w = typeof window !== "undefined" ? window.innerWidth : 800;
+    const h = typeof window !== "undefined" ? window.innerHeight : 600;
+    return Array.from({ length: 60 }).map((_, i) => ({
+      id: i,
+      x: (Math.random() - 0.5) * w,
+      y: -Math.random() * h,
+      rot: Math.random() * 720,
+      size: 16 + Math.random() * 24,
+      delay: Math.random() * 0.3,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [show]);
   if (!show) return null;
   return (
     <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">

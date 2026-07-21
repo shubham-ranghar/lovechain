@@ -9,8 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StoryRouteImport } from './routes/story'
+import { Route as ReasonsRouteImport } from './routes/reasons'
+import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as LetterRouteImport } from './routes/letter'
+import { Route as GalleryRouteImport } from './routes/gallery'
+import { Route as FinaleRouteImport } from './routes/finale'
+import { Route as DateRouteImport } from './routes/date'
+import { Route as CountdownRouteImport } from './routes/countdown'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StoryRoute = StoryRouteImport.update({
+  id: '/story',
+  path: '/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReasonsRoute = ReasonsRouteImport.update({
+  id: '/reasons',
+  path: '/reasons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LetterRoute = LetterRouteImport.update({
+  id: '/letter',
+  path: '/letter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinaleRoute = FinaleRouteImport.update({
+  id: '/finale',
+  path: '/finale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DateRoute = DateRouteImport.update({
+  id: '/date',
+  path: '/date',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CountdownRoute = CountdownRouteImport.update({
+  id: '/countdown',
+  path: '/countdown',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +67,144 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/countdown': typeof CountdownRoute
+  '/date': typeof DateRoute
+  '/finale': typeof FinaleRoute
+  '/gallery': typeof GalleryRoute
+  '/letter': typeof LetterRoute
+  '/quiz': typeof QuizRoute
+  '/reasons': typeof ReasonsRoute
+  '/story': typeof StoryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/countdown': typeof CountdownRoute
+  '/date': typeof DateRoute
+  '/finale': typeof FinaleRoute
+  '/gallery': typeof GalleryRoute
+  '/letter': typeof LetterRoute
+  '/quiz': typeof QuizRoute
+  '/reasons': typeof ReasonsRoute
+  '/story': typeof StoryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/countdown': typeof CountdownRoute
+  '/date': typeof DateRoute
+  '/finale': typeof FinaleRoute
+  '/gallery': typeof GalleryRoute
+  '/letter': typeof LetterRoute
+  '/quiz': typeof QuizRoute
+  '/reasons': typeof ReasonsRoute
+  '/story': typeof StoryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/countdown'
+    | '/date'
+    | '/finale'
+    | '/gallery'
+    | '/letter'
+    | '/quiz'
+    | '/reasons'
+    | '/story'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/countdown'
+    | '/date'
+    | '/finale'
+    | '/gallery'
+    | '/letter'
+    | '/quiz'
+    | '/reasons'
+    | '/story'
+  id:
+    | '__root__'
+    | '/'
+    | '/countdown'
+    | '/date'
+    | '/finale'
+    | '/gallery'
+    | '/letter'
+    | '/quiz'
+    | '/reasons'
+    | '/story'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CountdownRoute: typeof CountdownRoute
+  DateRoute: typeof DateRoute
+  FinaleRoute: typeof FinaleRoute
+  GalleryRoute: typeof GalleryRoute
+  LetterRoute: typeof LetterRoute
+  QuizRoute: typeof QuizRoute
+  ReasonsRoute: typeof ReasonsRoute
+  StoryRoute: typeof StoryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/story': {
+      id: '/story'
+      path: '/story'
+      fullPath: '/story'
+      preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reasons': {
+      id: '/reasons'
+      path: '/reasons'
+      fullPath: '/reasons'
+      preLoaderRoute: typeof ReasonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/letter': {
+      id: '/letter'
+      path: '/letter'
+      fullPath: '/letter'
+      preLoaderRoute: typeof LetterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finale': {
+      id: '/finale'
+      path: '/finale'
+      fullPath: '/finale'
+      preLoaderRoute: typeof FinaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/date': {
+      id: '/date'
+      path: '/date'
+      fullPath: '/date'
+      preLoaderRoute: typeof DateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/countdown': {
+      id: '/countdown'
+      path: '/countdown'
+      fullPath: '/countdown'
+      preLoaderRoute: typeof CountdownRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +217,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CountdownRoute: CountdownRoute,
+  DateRoute: DateRoute,
+  FinaleRoute: FinaleRoute,
+  GalleryRoute: GalleryRoute,
+  LetterRoute: LetterRoute,
+  QuizRoute: QuizRoute,
+  ReasonsRoute: ReasonsRoute,
+  StoryRoute: StoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
